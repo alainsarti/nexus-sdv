@@ -1,0 +1,77 @@
+# Ersetzen Sie URL und Pfade entsprechend
+curl -vvv --cert certificates/client.crt.pem --key certificates/client.key.pem --cacert ../pki/server-ca/ca.crt.pem https://34.89.184.61:8080/registration
+
+
+
+openssl x509 -in pki/factory-ca/ca.crt.pem -text -noout
+
+
+Generated files:
+  - factory-cert-gcp-key.pem      (Private key - keep secure)
+  - factory-cert-gcp.pem          (Certificate)
+  - factory-cert-gcp-chain.pem    (Certificate chain for registration)
+  - factory-cert-gcp.csr          (Certificate signing request)
+  - factory-cert-gcp-ca.pem       (Factory CA certificate)
+
+vehicle-1HGBH41JXMN109186-factory-gcp-ca.pem
+-rw-r--r--  1 danielelhs  staff  5706  2 Jan. 15:30 vehicle-1HGBH41JXMN109186-factory-gcp-chain.pem
+-rw-------  1 danielelhs  staff  1704  2 Jan. 15:30 vehicle-1HGBH41JXMN109186-factory-gcp-key.pem
+-rw-r--r--  1 danielelhs  staff   985  2 Jan. 15:30 vehicle-1HGBH41JXMN109186-factory-gcp.csr
+-rw-r--r--  1 danielelhs  staff  3748  2 Jan. 15:30 vehicle-1HGBH41JXMN109186-factory-gcp.pem
+
+
+curl -vvv --cert vehicle-1HGBH41JXMN109186-factory-gcp.pem --key vehicle-1HGBH41JXMN109186-factory-gcp-key.pem --cacert vehicle-1HGBH41JXMN109186-factory-gcp-chain.pem https://registration.sdv-dae.net:8080
+
+
+./vehicle-client 'remote' "1HGBH41JXMN109186" "https://registration.sdv-dae.net:8080"
+
+
+daniel-github-wif-965d77a6
+
+bootstrapping output (console? file?)
+  Registration Server URL (für Python Client oder jeden CLient)
+  Keycloak
+  NATS
+  verify="../pki/server-ca/ca.crt.pem" (registration)
+  verify="../pki/server-ca/ca.crt.pem" (keycloak)
+
+
+
+virtual-factory
+
+  service -> produce-car (entspricht im Wesentlichen factory.py.sign_car)
+
+    input:
+      
+      ca.conf?
+
+    output: 
+      vin
+      (optional: device_id -> later when needed)
+      operational key + cert
+
+Platform bootstrapp output
+      alle Endpunkte (Registration, Keycloak, Nats, Virtual Factory)
+      data_api_path (IP-Adresse)
+
+      relevante ca-pool's + ca's
+      relevante dns-pool's
+
+
+Certificate details:
+subject=O=Vehicle Manufacturer, CN=VIN:1HGBH41JXMN109186 DEVICE:1HGBH41JXMN109186
+
+./run-vehicle-client.sh remote 1HGBH41JXMN109186 https://registration.sdv-dae.net:8080 10
+./run-vehicle-client.sh remote 1HGBH41JXMN109186 https://registration.sdv-dae.net:8043 10
+
+./vehicle-client -vin="1HGBH41JXMN109186" -factory-cert="../certs_remote/vehicle-1HGBH41JXMN109186-factory-gcp-chain.pem" -factory-key="../certs_remote/vehicle-1HGBH41JXMN109186-factory-gcp-key.pem" -registration-url="https://registration.sdv-dae.net:8080"
+
+
+./vehicle-client \
+  -vin="VEHICLE001" \
+  -factory-cert="vehicle001-factory-chain.pem" \
+  -factory-key="vehicle001-factory-key.pem" \
+  -registration-url="https://registration.sdv-lal.com:8080"
+
+
+./run-vehicle-client.sh local VEHICLE001 https://registration.sdv-lal.com:8080 10
