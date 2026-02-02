@@ -1,0 +1,7 @@
+GCP_PROJECT_ID="sdv-sandbox"
+GCP_REGION="europe-west3"
+GITHUB_REPO="DE-Nexus-SDV/valtech-sdv-sandbox"
+ENV="sb"
+PKI_STRATEGY="local"
+
+
