@@ -149,5 +149,8 @@ sample-clients/telemetry-subscriber/telemetry-subscriber
 **/*.backup
 **/*.ext
 
+# Git worktrees
+.worktrees/
+
 # gh token for release
 set-gh-token-for-release-dae.sh
